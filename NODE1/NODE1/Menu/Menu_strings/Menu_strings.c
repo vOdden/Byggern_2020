@@ -41,7 +41,7 @@ const unsigned char PROGMEM MENU_GAME_STRINGS[4][16] =
 	{"---------------"},
 	{"Current score"},
 	{"GAME OVER!"},
-	{"Your score was:"},
+	{"Your score was:"}
 	
 };
 

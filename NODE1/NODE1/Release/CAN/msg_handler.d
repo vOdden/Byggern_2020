@@ -20,7 +20,8 @@ CAN/msg_handler.d CAN/msg_handler.o: ../CAN/msg_handler.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
- ../CAN/../UART/UART.h ../CAN/../IO_map.h
+ ../CAN/../UART/UART.h ../CAN/../IO_map.h ../CAN/../Menu/Menu.h \
+ ../CAN/../Menu/../utility.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h:
 
@@ -75,3 +76,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../CAN/../UART/UART.h:
 
 ../CAN/../IO_map.h:
+
+../CAN/../Menu/Menu.h:
+
+../CAN/../Menu/../utility.h:

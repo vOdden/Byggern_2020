@@ -18,6 +18,7 @@ extern volatile uint8_t NODE2_READY_FLAG;
 
 static uint16_t highscores[3] = {0, 0, 0};
 static int8_t current_player = 1;
+int8_t volatile difficulty_grade = 0; //default easy
 
 
 #define	Highscore_title_place	credit_name[0]
@@ -84,8 +85,8 @@ menu_t *Menu_init(void)
 	menu_t* calibrate		= Menu_create_menu(CALIBRATE_STRING, NULL);
 	menu_t* credits			= Menu_create_menu(CREDITS_STRING, Menu_write_credits);
 	
-	menu_t* easy			= Menu_create_menu(NORMAL_STRING, NULL);
-	menu_t* hard			= Menu_create_menu(HARD_STRING, NULL);	
+	menu_t* easy			= Menu_create_menu(NORMAL_STRING, set_difficulty_func);
+	menu_t* hard			= Menu_create_menu(HARD_STRING, set_difficulty_func);	
 	menu_t* select_player1	= Menu_create_menu(PLAYER1_STRING, Menu_function_start_game);
 	menu_t* select_player2	= Menu_create_menu(PLAYER2_STRING, Menu_function_start_game);
 	menu_t* select_player3	= Menu_create_menu(PLAYER3_STRING, Menu_function_start_game);
@@ -257,6 +258,7 @@ void Menu_write_score(uint16_t score)
 void Menu_write_game_over(uint16_t score)
 {
  	char num_string[6];
+	 
  	sprintf(num_string, "%d", score);	
  
  	OLED_clear();
@@ -349,4 +351,18 @@ void Menu_pgm_write_string(const unsigned char *p_s, uint8_t line, uint8_t col)
 	OLED_goto(line, col);
 	strncpy_P(s, p_s, 16);
 	OLED_write_string(s);		
+}
+
+void set_difficulty_func(int8_t choice)
+{
+	
+	if(choice)
+	{
+		difficulty_grade = 1;//Hard
+	}
+	else
+	{
+		difficulty_grade = 0;//easy
+	}
+	
 }

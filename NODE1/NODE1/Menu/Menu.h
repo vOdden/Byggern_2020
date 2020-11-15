@@ -45,6 +45,7 @@ void Menu_wite_high_score(int8_t choice);
 void Menu_wite_high_score(int8_t choice);
 void Menu_function_start_game(int8_t choice);
 void Menu_write_credits(int8_t);
+void set_difficulty_func(int8_t choice);
 
 
 

@@ -2,12 +2,15 @@
 #include <stdio.h>
 #include "msg_handler.h"
 #include "CAN.h"
+#include "../Menu/Menu.h"
 
 volatile uint8_t ready		= 0;
 volatile uint8_t start		= 0;
 volatile uint8_t Goal		= 0;
 volatile uint8_t Heartbeat	= 0;
 volatile pos_t position;
+
+extern int8_t difficulty_grade;
 
 void msg_handler(CAN_MESSAGE* can_msg)
 {	
@@ -77,7 +80,14 @@ void Send_msg(MSG_type type)
 			msg.ID = 'S';
 			msg.data_length = 2;
 			msg.data[0] = 0xFF; // ready
-			msg.data[1] = 0xFF; //START = 0xnF     HARD = 0xFn    NORMAL = 0x0n
+			if(difficulty_grade)
+			{
+				msg.data[1] = 0xFF; //START = 0xnF     HARD = 0xFn    NORMAL = 0x0n
+			}
+			else
+			{	
+				msg.data[1] = 0x0F; //START = 0xnF     HARD = 0xFn    NORMAL = 0x0n
+			}
 		break;
 
 		case READY:
