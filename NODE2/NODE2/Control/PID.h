@@ -1,3 +1,12 @@
+/**
+ * @file PID.c
+ * @author TTK4155 2020 Group 28
+ * @date 17 nov 2020
+ * @brief File containing drivers for the PID controller
+ * @see http://nimron.net/P1000/
+ */
+
+
 #ifndef PID_H_
 #define PID_H_
 
