@@ -1,3 +1,4 @@
+/*
 *@file main.c
 * @author TTK4155 2020 Group 28
 * @date 17 nov 2020
@@ -6,7 +7,7 @@
 * in an old, drawer like box.
 * This program controls Node 2 of 2. Node 1 handles user input, GUI and communicates with
 * Node 2, which in turn controls the actual game board and related peripherals.
-
+*/
 #include "sam.h"
 #include "main.h"
 
