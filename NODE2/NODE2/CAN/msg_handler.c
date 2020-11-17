@@ -1,3 +1,9 @@
+/**
+ * @file msg_handler.c
+ * @author TTK4155 2020 Group 28
+ * @date 17 nov 2020
+ * @brief File containing CAN bus message handling.
+ */
 
 #include "sam.h"
 #include <stdio.h>
@@ -5,12 +11,19 @@
 #include "msg_handler.h"
 #include "../Utility/Utility.h"
 
-volatile uint8_t ready;
-volatile uint8_t start;
-volatile uint8_t Goal;
-volatile uint8_t Heartbeat;
-volatile pos_t position;
+volatile uint8_t ready; ///< @brief Node 1 ready flag
+volatile uint8_t start; ///< @brief Game start message flag
+volatile uint8_t Goal;  ///< @brief Goal scored flag
+volatile uint8_t Heartbeat; ///< @brief Node heartbeat @note Not implemented. Replaced by ready polling
+volatile pos_t position; ///< @brief global position structure. Continously updated with user input. Shared between nodes.
 
+/**
+ * @brief CAN buss message handler.
+ * Uppdates global flags and data structures based on CAN.ID
+ *
+ * @param  can_msg: CAN message to process
+ * @retval none
+ */ 
 void msg_handler(CAN_MESSAGE* can_msg)
 {	
 	switch(can_msg->ID)
@@ -71,7 +84,13 @@ void msg_handler(CAN_MESSAGE* can_msg)
 	}
 }
 
-
+/**
+ * @brief CAN buss standard output package constructor.
+ * Assembles and sends standard CAN packages.
+ *
+ * @param  type: Type of message to send
+ * @retval none
+ */ 
 void Send_msg(MSG_type type)
 {
 	
@@ -82,8 +101,8 @@ void Send_msg(MSG_type type)
 		case START:
 		msg.ID = 'S';
 		msg.data_length = 2;
-		msg.data[0] = 0xFF;
-		msg.data[1] = 0xFF;
+		msg.data[0] = 0xFF; //READY
+		msg.data[1] = 0xFF; //START
 		printf("Sendt start \r");
 		break;
 
@@ -120,7 +139,7 @@ void Send_msg(MSG_type type)
 }
 
 
-void TC6_Handler(void)
+void TC6_Handler(void) //Timer interrupt handler
 {	
 	uint32_t status = REG_TC2_SR0;//read status register - this clears interrupt flags
 	
