@@ -1,3 +1,10 @@
+/**
+ * @file Motor.h
+ * @author TTK4155 2020 Group 28
+ * @date 17 nov 2020
+ * @brief File containing drivers for the motor
+ *
+ */
 #ifndef Motor_H_
 #define Motor_H_
 
