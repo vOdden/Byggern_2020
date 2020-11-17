@@ -1,4 +1,10 @@
-
+/**
+ * @file Motor.c
+ * @author TTK4155 2020 Group 28
+ * @date 17 nov 2020
+ * @brief File containing drivers for interfacing with the motor
+ * @see http://nimron.net/P1000/
+ */
 #include "sam.h"
 
 #include "motor.h"
@@ -8,8 +14,10 @@
 #include <stdio.h>
 #include <math.h>
 
-#define motor_vel_max 0.7
+#define motor_vel_max 0.7	// Max velocity of the motor
 
+
+// This function is not currently in use.
 float saturate(float f, float min, float max)
 {
 	if(f > max)
@@ -25,7 +33,12 @@ float saturate(float f, float min, float max)
 		return f;
 	}	
 }
-
+/**
+ * @brief Enable the motor
+ *
+ * @param  enable
+ * @retval none
+ */ 
 void Motor_enable(uint8_t enable)
 {
     if(enable)
@@ -37,7 +50,12 @@ void Motor_enable(uint8_t enable)
         clear_pin(MOTOR_EN_PORT, MOTOR_EN_PIN);
 	}
 }
-
+/**
+ * @brief Enable the encoder output
+ *
+ * @param  enable
+ * @retval none
+ */ 
 void Encoder_output_enable(uint8_t enable)
 {
     if(enable)
@@ -49,7 +67,12 @@ void Encoder_output_enable(uint8_t enable)
 		clear_pin(ENCODER_OE_PORT, ENCODER_OE_PIN);
 	}
 }
-
+/**
+ * @brief Reset the encoder 
+ *
+ * @param  none
+ * @retval none
+ */ 
 void Encoder_reset(void)
 {
     clear_pin(ENCODER_RST_PORT, ENCODER_RST_PIN);
@@ -57,7 +80,12 @@ void Encoder_reset(void)
     set_pin(ENCODER_RST_PORT, ENCODER_RST_PIN);
 	Delay_ms(20);
 }
-
+/**
+ * @brief Initializing the motor 
+ *
+ * @param  none
+ * @retval none
+ */ 
 void Motor_init(void)
 {
     PMC->PMC_PCER0 |= PMC_PCER0_PID13 | PMC_PCER0_PID14; 
@@ -73,7 +101,12 @@ void Motor_init(void)
     Motor_set_speed(0);
 }
 
-
+/**
+ * @brief Set the direction of motor
+ *
+ * @param  none
+ * @retval none
+ */ 
 void Motor_set_direction(Direction_t dir)
 {
     switch(dir)
@@ -91,13 +124,18 @@ void Motor_set_direction(Direction_t dir)
 		break;
     }
 }
-
+/**
+ * @brief Set the speed of the motor
+ *
+ * @param  speed
+ * @retval none
+ */ 
 void Motor_set_speed(uint16_t speed)
 {
     DAC_write(speed);
 }
 
-
+// Not currently being used in the program
 void Motor_velocity(float vel)
 {
 //    vel = saturate(vel, -motor_vel_max, motor_vel_max);
@@ -105,7 +143,12 @@ void Motor_velocity(float vel)
 //    motor_direction(vel < 0 ? left : right);
 }
 
-
+/**
+ * @brief Reading from the encoder
+ *
+ * @param  none
+ * @retval none
+ */ 
 int16_t Encoder_read(void)
 {
   	int16_t Data;
@@ -140,27 +183,34 @@ int16_t Encoder_read(void)
 
 
 
-//Right == negativ direction
-//Left == Positive direction
+
+/**
+ * @brief Limitation of the encoder
+ *
+ * Right == negativ direction
+ * Left == Positive direction
+ * @param  none
+ * @retval data
+ */ 
 int16_t Encoder_limit(void)
 {
-	Motor_set_direction(RIGHT);
-	Motor_set_speed(1500);
-	Motor_enable(ENABLE);
+	Motor_set_direction(RIGHT);	
+	Motor_set_speed(1500);		
+	Motor_enable(ENABLE);		
 	Delay(1000);
 	
-	Encoder_reset();
+	Encoder_reset();		
 	
-	Motor_set_direction(LEFT);
+	Motor_set_direction(LEFT);	
 	
 	Delay(1000);
 	
-	int16_t data = Encoder_read();
+	int16_t data = Encoder_read();	
 	
 	printf("%d \r", data);
 	
-	Motor_enable(DISABLE);
-	Motor_set_speed(0);
+	Motor_enable(DISABLE);		
+	Motor_set_speed(0);		
 
-	return data;
+	return data;			
 }
