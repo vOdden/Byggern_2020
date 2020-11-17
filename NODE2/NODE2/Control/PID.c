@@ -78,7 +78,7 @@ void PID_init()
  * @brief Initializing the PID encoder
  *
  * @param  none
- * @retval none
+ * @retval encoder_max
  */  
 int16_t PID_encoder_init(void)
 {
@@ -105,7 +105,7 @@ void PID_stop(void)
 	Timer_stop(TIMER0);
 }
 /**
- * @brief Starts the servo
+ * @brief Starts the PID
  *
  * @param  none
  * @retval none
@@ -117,10 +117,10 @@ void PID_start(void)
 }
 
 /**
- * @brief Receiving current position of the servo.
+ * @brief Receiving current position of the motor .
  *
  * @param  none
- * @retval none
+ * @retval position of motor
  */                                                                      
 int16_t current_pos()
 {
@@ -140,7 +140,7 @@ int16_t current_pos()
  */ 
 void PID_regulator()
 {
-	int32_t pos = current_pos();	// Receiving position of the servo
+	int32_t pos = current_pos();	// Receiving position of the Motor
 	
 	int16_t e = (int16_t)position.slider + (255*pos)/encoder_max;  // Calculating the error, e = (Desired position) - (actual position)
 	
