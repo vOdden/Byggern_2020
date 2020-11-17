@@ -1,3 +1,10 @@
+/**
+ * @file ADC.h
+ * @author TTK4155 2020 Group 28
+ * @date 17 nov 2020
+ * @brief File containing drivers for the ADC.
+ *
+ */
 
 #include "sam.h"
 #include <stdio.h>
@@ -6,6 +13,13 @@
 
 
 //ADC max clock frequency == 22MHz => prescaler minimum 4 (21MHz)
+
+/**
+ * @brief Initialization function for the ADC
+ *
+ * @param  channel
+ * @retval none
+ */ 
 void ADC_init(uint8_t channel)
 {
 	PMC->PMC_PCER1 |= (1<<5);			// ENABLE ADC CLOCK
@@ -13,7 +27,12 @@ void ADC_init(uint8_t channel)
 	ADC->ADC_CHER = channel;		//ENABLE ADC channels vi bruker kanal 0!
 	ADC->ADC_CR = ADC_CR_START;
 }
-
+/**
+ * @brief Receiving data from the ADC
+ *
+ * @param  channel
+ * @retval ADC
+ */ 
 uint16_t ADC_read(uint8_t channel)
 {			
 	return ADC->ADC_CDR[0]; //READ DATA REGISTER
