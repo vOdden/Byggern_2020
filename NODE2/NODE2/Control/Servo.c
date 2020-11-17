@@ -1,10 +1,15 @@
-
+/**
+ * @file Menu.c
+ * @author TTK4155 2020 Group 28
+ * @date 17 nov 2020
+ * @brief File containing diver for Servo
+ */
 #include "Servo.h"
 #include "../Utility/Utility.h"
 
 extern volatile pos_t position;
-volatile int8_t Servo_x_CAL = 0;
-volatile int8_t Servo_y_CAL = 0;
+volatile int8_t Servo_x_CAL = 0;//offset from 0
+volatile int8_t Servo_y_CAL = 0;//offset from 0
 
 void Servo_calibrate(void)
 {
@@ -21,7 +26,7 @@ void Servo_init(void)
 }
 
 
-void Servo_move(uint8_t pos, uint8_t channel)
+void Servo_move(uint8_t pos, uint8_t channel)//old function 
 {
 	uint16_t x = 900 + (pos * 4.72); //
 	
@@ -29,7 +34,7 @@ void Servo_move(uint8_t pos, uint8_t channel)
 }
 
 
-uint16_t Servo_calc_D(int8_t x, int8_t y)
+uint16_t Servo_calc_D(int8_t x, int8_t y)//makes sure the value is in the range -100 to 100. Only x is used
 {
 	x *= -1;
 	
@@ -45,7 +50,7 @@ uint16_t Servo_calc_D(int8_t x, int8_t y)
 	return 1500 + x*6;
 }
 
-void Servo_set_position(int8_t x, int8_t y)
+void Servo_set_position(int8_t x, int8_t y)//Only x is used
 {
 	int16_t x_16 = (x - 2 *Servo_x_CAL);
 	int16_t y_16 = (y - 2 *Servo_y_CAL);
@@ -68,7 +73,7 @@ void Servo_set_position(int8_t x, int8_t y)
 
 
 
-int8_t Servo_get_D(uint8_t channel)
+int8_t Servo_get_D(uint8_t channel)// get Duty-cycle
 {
 	switch(channel)
 	{
