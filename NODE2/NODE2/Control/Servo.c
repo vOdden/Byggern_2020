@@ -1,5 +1,5 @@
 /**
- * @file Menu.c
+ * @file Servo.c
  * @author TTK4155 2020 Group 28
  * @date 17 nov 2020
  * @brief File containing diver for Servo
