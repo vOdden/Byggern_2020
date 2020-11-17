@@ -1,17 +1,26 @@
+*@file main.c
+* @author TTK4155 2020 Group 28
+* @date 17 nov 2020
+* @brief TTK4155 term project Node 2 main file.
+* Contains a program for playing a weird, mechanical game of single player ping-pong
+* in an old, drawer like box.
+* This program controls Node 2 of 2. Node 1 handles user input, GUI and communicates with
+* Node 2, which in turn controls the actual game board and related peripherals.
+
 #include "sam.h"
 #include "main.h"
 
 //MOVE TO IR.h
-#define IR_TRIGGER_VOLTAGE 0.200 //Voltage treshold for goal/not goal
-#define IR_TRIGGER_LEVEL (int)(IR_TRIGGER_VOLTAGE*4095/3.3)
-#define IR_FILTER_COUNT 50
+#define IR_TRIGGER_VOLTAGE 0.200 			///<@Voltage treshold for goal/not goal
+#define IR_TRIGGER_LEVEL (int)(IR_TRIGGER_VOLTAGE*4095/3.3) ///<@ Trigger level used in code as a function of the trigger_voltage
+#define IR_FILTER_COUNT 50 ///<@ counts before goal is actulay goal
 int IR_triggered();
 
-extern volatile uint8_t ready;
-extern volatile uint8_t start;
-extern volatile uint8_t Goal;
-extern volatile uint8_t Heartbeat;
-extern volatile pos_t position;
+extern volatile uint8_t ready; ///< @brief Node 1 ready flag. Definition in msg_handler.c	
+extern volatile uint8_t start; 	///< @brief Game start message flag. Definition in msg_handler.c
+extern volatile uint8_t Goal;  	///< @brief Goal scored flag. Definition in msg_handler.c
+extern volatile uint8_t Heartbeat; ///< @brief Node heartbeat @note Not implemented. Replaced by ready polling. Definition in msg_handler.c
+extern volatile pos_t position; ///< @brief global position structure. Continously updated with user input. Shared between nodes.
 
 
 void setup(void); //function to setup the different drivers.
@@ -58,7 +67,7 @@ int main(void)
 			}
 			if(IR_triggered()) // if IR beam is cut off, GOAL!
 			{
-				start = 0;	//Stop the PID.
+				start = 0;	
 				Send_msg(GOAL); //Send GOAL to Node 1
 			}	
 		}
