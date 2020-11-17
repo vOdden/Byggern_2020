@@ -1,3 +1,11 @@
+/**
+ * @file ADC.h
+ * @author TTK4155 2020 Group 28
+ * @date 17 nov 2020
+ * @brief File containing drivers for external, memory mapped, ADC.
+ *
+ */
+
 #ifndef ADC_H_
 #define ADC_H_
 
