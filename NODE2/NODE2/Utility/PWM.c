@@ -25,16 +25,23 @@ void PWM_init(void)
 	PWM->PWM_CLK = PWM_CLK_DIVA(28)| PWM_CLK_PREA(0); //PWM_CLK = 3MHZ
 	PMC->PMC_PCER1 |= (1 << 4); //Enable PWM clock
 	REG_PWM_CMR5 = 0xB | 1 << 9; //CLKA, Polatity start high
-	REG_PWM_CPRD5 = 60000; // set 
-	REG_PWM_CDTY5 = 4500; // Hver verdi tilsvarer 1us
+	REG_PWM_CPRD5 = 60000; // set period to 20ms. 60 000 = 20ms * 1000 * 3
+	REG_PWM_CDTY5 = 4500; // set duty-cycle to 1,5 ms. 4500 = 1,5 * 1000 * 3
 	REG_PWM_CMR6 = 0xB | 1 << 9; //CLKA, Polatity start high
-	REG_PWM_CPRD6 = 60000;
-	REG_PWM_CDTY6 = 4500;
-	PWM->PWM_ENA |= PWM_ENA_CHID5;
-	PWM->PWM_ENA |= PWM_ENA_CHID6;
+	REG_PWM_CPRD6 = 60000; // set period to 20ms. 60 000 = 20ms * 1000 * 3
+	REG_PWM_CDTY6 = 4500; // set duty-cycle to 1,5 ms. 4500 = 1,5 * 1000 * 3
+	PWM->PWM_ENA |= PWM_ENA_CHID5; // enable PWM channel 5
+	PWM->PWM_ENA |= PWM_ENA_CHID6; // enable PWM channel 6
 }
 
-void PWM_set_duty_cycle(uint16_t us, uint8_t channel)
+/**
+ * @brief Initialization function for the external, memory mapped, ADC.
+ * Function start a PWM signal to be used as ADC clock.
+ * makes sure the duty-cycle is in the range 0.9ms to 2,1 ms
+ * @param  us, channel
+ * @retval none
+ */ 
+void PWM_set_duty_cycle(uint16_t us, uint8_t channel) 
 {
 	if(us < 900)
 	{
@@ -46,10 +53,10 @@ void PWM_set_duty_cycle(uint16_t us, uint8_t channel)
 	}
 	if (channel == 5)
 	{
-		REG_PWM_CDTY5 = 3*us; // Hver verdi tilsvarer 1us
+		REG_PWM_CDTY5 = 3*us; 
 	}
 	else if(channel == 6)
 	{
-		REG_PWM_CDTY6 = 3*us; // Hver verdi tilsvarer 1us
+		REG_PWM_CDTY6 = 3*us; 
 	}
 }
