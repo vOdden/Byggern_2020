@@ -2,7 +2,7 @@
  * @file ADC.c
  * @author TTK4155 2020 Group 28
  * @date 17 nov 2020
- * @brief File containing drivers for external, memory mapped, ADC.
+ * @brief File containing drivers for  ADC.
  *
  */
 
@@ -24,7 +24,7 @@ void ADC_init(uint8_t channel)
 {
 	PMC->PMC_PCER1 |= (1<<5);			// ENABLE ADC CLOCK
 	ADC->ADC_MR = ADC_MR_PRESCAL(10) | ADC_MR_FREERUN_ON;	// ADC CLOCK = MCK / (prescal+1)*2 => 21MHz
-	ADC->ADC_CHER = channel;		//ENABLE ADC channels vi bruker kanal 0!
+	ADC->ADC_CHER = channel;		//ENABLE ADC channels, we use channel 0!
 	ADC->ADC_CR = ADC_CR_START;
 }
 /**
