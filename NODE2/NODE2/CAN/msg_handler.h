@@ -1,4 +1,9 @@
-
+/**
+ * @file msg_handler.c
+ * @author TTK4155 2020 Group 28
+ * @date 17 nov 2020
+ * @brief File containing CAN bus message handling.
+ */
 
 
 #ifndef MSG_HANDLER_H_
