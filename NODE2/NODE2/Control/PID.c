@@ -1,8 +1,7 @@
 /**
- * @file main.c
+ * @file PID.c
  * @author TTK4155 2020 Group 28
  * @date 17 nov 2020
- * @brief TTK4155 term project Node 1 main file.
  * Contains a program for controlling the motor with a PID regulator.
 */ 
 
