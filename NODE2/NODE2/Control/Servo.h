@@ -1,3 +1,9 @@
+/**
+ * @file Servo.h
+ * @author TTK4155 2020 Group 28
+ * @date 17 nov 2020
+ * @brief File containing driver for Servo
+ */
 #ifndef Servo_H_
 #define Servo_H_
 
