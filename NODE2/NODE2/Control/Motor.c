@@ -104,7 +104,7 @@ void Motor_init(void)
 /**
  * @brief Set the direction of motor
  *
- * @param  none
+ * @param  Motor Direction 
  * @retval none
  */ 
 void Motor_set_direction(Direction_t dir)
@@ -147,7 +147,7 @@ void Motor_velocity(float vel)
  * @brief Reading from the encoder
  *
  * @param  none
- * @retval none
+ * @retval data
  */ 
 int16_t Encoder_read(void)
 {
